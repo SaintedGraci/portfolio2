@@ -1,0 +1,12 @@
+# Ignore node_modules
+node_modules/
+
+# Ignore source files (they will be built)
+src/
+
+# Ignore config files that aren't needed in production
+vite.config.js
+eslint.config.js
+
+# Ignore lock files
+package-lock.json
