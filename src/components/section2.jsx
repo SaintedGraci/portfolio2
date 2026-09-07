@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import barangayImage from '../assets/barangay.png';
 import recipe from '../assets/recipe.png';
 import resta from '../assets/resta.avif';
+import catering from '../assets/catering-02.jpg';
+import traffisight from '../assets/traffisightai.jpg';
 const Section2 = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
 
@@ -10,19 +12,49 @@ const Section2 = () => {
       title: "Barangay Smart System",
       tags: ["React", "Node.js", "Mysql", "Tailwind"],
       image: barangayImage,
-      color: "border-lime-400"
+      color: "border-lime-400",
+      github: [
+        { label: "Client", url: "https://github.com/SaintedGraci/BARANGAY-SMART-SYSTEM-CLIENT.git" },
+        { label: "Server", url: "https://github.com/SaintedGraci/BARANGAY-BAKILID-SERVER.git" }
+      ]
     },
     {
       title: "SMART Recipe App",
       tags: ["React", "Node.js", "Mysql", "Tailwind", "API"],
       image: recipe,
-      color: "border-pink-500"
+      color: "border-pink-500",
+      github: [
+        { label: "Repository", url: "https://github.com/SaintedGraci/Recipe-Finder-Web.git" }
+      ]
     },
     {
       title: "Aling Dadai Restaurant",
       tags: ["Laravel", "PHP", "Mysql", "Bootstrap", "tailwind"],
       image: resta,
-      color: "border-lime-400"
+      color: "border-lime-400",
+      github: [
+        { label: "Repository", url: "https://github.com/SaintedGraci/RestaurantSystem.git" }
+      ]
+    },
+    {
+      title: "Catering Smart System",
+      tags: ["React", "Node.js", "Mysql", "Tailwind"],
+      image: catering,
+      color: "border-pink-500",
+      github: [
+        { label: "UI", url: "https://github.com/SaintedGraci/catering-ui.git" },
+        { label: "Server", url: "https://github.com/SaintedGraci/Catering-Server.git" }
+      ]
+    },
+    {
+      title: "TraffiSight",
+      tags: ["Python", "AI", "Computer Vision", "OpenCV"],
+      image: traffisight,
+      color: "border-lime-400",
+      github: [
+        { label: "Repository", url: "https://github.com/SaintedGraci/TraffiSight.git" }
+      ],
+      description: "AI-powered system that detects common stoplight violations such as beating the red light"
     }
   ];
 
@@ -81,9 +113,32 @@ const Section2 = () => {
                         </span>
                       ))}
                     </div>
-                    <h4 className="text-2xl md:text-3xl font-black text-white group-hover:text-lime-400 transition-colors uppercase italic">
+                    <h4 className="text-2xl md:text-3xl font-black text-white group-hover:text-lime-400 transition-colors uppercase italic mb-3">
                       {project.title}
                     </h4>
+                    {project.description && (
+                      <p className="text-sm text-slate-400 mb-3 line-clamp-2">
+                        {project.description}
+                      </p>
+                    )}
+                    <div className="flex flex-wrap gap-2">
+                      {project.github.map((repo, idx) => (
+                        <a 
+                          key={idx}
+                          href={repo.url}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-wider bg-lime-400/10 hover:bg-lime-400 text-lime-400 hover:text-slate-950 border border-lime-400/30 hover:border-lime-400 px-3 py-1.5 rounded-lg transition-all duration-300"
+                          onClick={(e) => e.stopPropagation()}
+                        >
+                          <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                            <path d="M15 22v-4a4.8 4.8 0 0 0-1-3.5c3 0 6-2 6-5.5.08-1.25-.27-2.48-1-3.5.28-1.15.28-2.35 0-3.5 0 0-1 0-3 1.5-2.64-.5-5.36-.5-8 0C6 2 5 2 5 2c-.3 1.15-.3 2.35 0 3.5A5.403 5.403 0 0 0 4 9c0 3.5 3 5.5 6 5.5-.39.49-.68 1.05-.85 1.65-.17.6-.22 1.23-.15 1.85v4"/>
+                            <path d="M9 18c-4.51 2-5-2-7-2"/>
+                          </svg>
+                          {repo.label}
+                        </a>
+                      ))}
+                    </div>
                   </div>
                 </div>
               </div>

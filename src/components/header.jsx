@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate, useLocation } from 'react-router-dom';
 
 const Header = () => {
   const [isScrolled, setIsScrolled] = useState(false);
+  const navigate = useNavigate();
+  const location = useLocation();
 
   useEffect(() => {
     const handleScroll = () => setIsScrolled(window.scrollY > 20);
@@ -10,9 +12,39 @@ const Header = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+  const handleNavClick = (e, path) => {
+    e.preventDefault();
+    
+    if (path.startsWith('/#')) {
+      // Handle anchor links
+      const sectionId = path.substring(2); // Remove '/#'
+      
+      if (location.pathname !== '/') {
+        // Navigate to home first, then scroll
+        navigate('/');
+        setTimeout(() => {
+          const element = document.getElementById(sectionId);
+          if (element) {
+            element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          }
+        }, 100);
+      } else {
+        // Already on home, just scroll
+        const element = document.getElementById(sectionId);
+        if (element) {
+          element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      }
+    } else {
+      // Regular navigation
+      navigate(path);
+    }
+  };
+
   const navLinks = [
     { name: 'About', path: '/about' },
     { name: 'Projects', path: '/#projects' },
+    { name: 'Analytics', path: '/#analytics' },
     { name: 'Experience', path: '/experience' },
     { name: 'Contact', path: '/#contact' },
   ];
@@ -34,13 +66,14 @@ const Header = () => {
         {/* Desktop Navigation */}
         <nav className="hidden md:flex items-center space-x-8">
           {navLinks.map((link) => (
-            <Link
+            <a
               key={link.name}
-              to={link.path}
-              className="text-sm font-bold uppercase tracking-widest text-slate-300 hover:text-lime-400 transition-colors"
+              href={link.path}
+              onClick={(e) => handleNavClick(e, link.path)}
+              className="text-sm font-bold uppercase tracking-widest text-slate-300 hover:text-lime-400 transition-colors cursor-pointer"
             >
               {link.name}
-            </Link>
+            </a>
           ))}
           
           <a 
